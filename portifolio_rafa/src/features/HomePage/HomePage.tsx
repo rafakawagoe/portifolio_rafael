@@ -1,20 +1,22 @@
-import MyPhoto from "../../assets/perfil.webp";
 import "./HomePage.css";
+import Navbar from "../../components/Navbar/Navbar";
+import Footer from "../../components/Footer/Footer";
+import HeroSection from "../../components/HeroSection/HeroSection";
+import SocialSection from "../../components/SocialSection/SocialSection";
+import AboutSection from "../../components/AboutSection/AboutSection";
+import ProjectsSection from "../../components/ProjectsSection/ProjectsSection";
 
 function HomePage() {
   return (
-    <div className="container-flex">
-      <div className="coluna-imagem">
-        <img src={MyPhoto} alt="My Photo" srcSet={`${MyPhoto} 3000w`} />
-      </div>
-      <div className="coluna-texto">
-        <h1>Welcome to My Portfolio</h1>
-        <p>
-          My name is Rafael Kawagoe and this is the home page of my portfolio
-          website.
-        </p>
-      </div>
+    <div className="home-page">
+      <Navbar />
+      <HeroSection />
+      <AboutSection />
+      <ProjectsSection />
+      <SocialSection />
+      <Footer />
     </div>
   );
 }
+
 export default HomePage;

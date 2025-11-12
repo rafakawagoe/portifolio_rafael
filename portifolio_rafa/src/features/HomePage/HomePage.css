@@ -1,28 +1,4 @@
-
-
-.container-flex {
-  display: flex;
-  align-items: center;  
-  gap: 20px;            
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  max-width: 800px;     
-  margin: 20px auto;    
-}
-
-.coluna-imagem {
-  flex: 1; 
-
-}
-
-.coluna-texto {
-  flex: 2;
-  
-}
-
-.coluna-imagem img {
-  width: 100%;      
-  height: auto;     
-  display: block;   
+.home-page {
+  width: 100%;
+  min-height: 100vh;
 }
