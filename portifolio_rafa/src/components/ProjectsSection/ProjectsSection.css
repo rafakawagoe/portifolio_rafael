@@ -1,0 +1,63 @@
+/* Projects Section */
+.projects-section {
+  padding: 80px 40px;
+  background-color: #e8e8e8;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin: 0 0 60px 0;
+  color: #000;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.project-card {
+  text-align: center;
+}
+
+.project-image {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c4b5a0 0%, #e8dcc8 100%);
+  margin-bottom: 20px;
+}
+
+.project-name {
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin: 0 0 8px 0;
+  color: #000;
+}
+
+.project-price {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+  color: #000;
+}
+
+@media (max-width: 1024px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}
