@@ -16,15 +16,15 @@
 .about-image {
   width: 100%;
   aspect-ratio: 4/3;
-  background-color: #e8e8e8;
   border-radius: 8px;
   overflow: hidden;
 }
 
-.about-placeholder {
+.about-photo {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #d4d4d4 0%, #f0f0f0 100%);
+  object-fit: contain;
+  display: block;
 }
 
 .about-text {

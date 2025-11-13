@@ -1,7 +1,8 @@
+import { memo } from "react";
 import "./Footer.css";
 import { useTranslation } from "react-i18next";
 
-function Footer() {
+const Footer = memo(function Footer() {
   const { t } = useTranslation();
 
   return (
@@ -40,6 +41,6 @@ function Footer() {
       </div>
     </footer>
   );
-}
+});
 
 export default Footer;

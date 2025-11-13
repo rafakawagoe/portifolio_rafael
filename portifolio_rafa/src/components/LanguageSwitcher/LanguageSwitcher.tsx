@@ -1,11 +1,14 @@
 import "./LanguageSwitcher.css";
 import { useTranslation } from "react-i18next";
+import { trackLanguageChange } from "../../utils/analytics";
 
 function LanguageSwitcher() {
   const { i18n } = useTranslation();
 
   const changeLanguage = (lng: string) => {
+    const fromLang = i18n.language;
     i18n.changeLanguage(lng);
+    trackLanguageChange(fromLang, lng);
   };
 
   return (

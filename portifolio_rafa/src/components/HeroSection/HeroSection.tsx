@@ -1,8 +1,9 @@
+import { memo } from "react";
 import "./HeroSection.css";
 import heroImage from "../../assets/traveldroid.jpg";
 import { useTranslation } from "react-i18next";
 
-function HeroSection() {
+const HeroSection = memo(function HeroSection() {
   const { t } = useTranslation();
 
   return (
@@ -19,6 +20,6 @@ function HeroSection() {
       </div>
     </section>
   );
-}
+});
 
 export default HeroSection;
