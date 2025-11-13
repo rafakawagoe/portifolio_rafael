@@ -132,12 +132,13 @@ portifolio_rafa/
 │   ├── features/       # Features/páginas
 │   │   ├── HomePage/
 │   │   └── AboutPage/
-│   ├── hooks/          # Custom hooks
+│   ├── hooks/          # hooks customizados
+│   ├── locales/        # Arquivos de tradução
 │   ├── services/       # API e serviços
 │   ├── utils/          # Utilitários e helpers
 │   │   └── analytics.ts
 │   ├── i18n/           # Configuração i18n
-│   ├── main.tsx        # Entry point
+│   ├── main.tsx        # Inicialização
 │   └── index.css       # Estilos globais
 ├── .husky/             # Git hooks
 ├── .env.local          # Variáveis de ambiente (não commitado)
@@ -149,7 +150,7 @@ portifolio_rafa/
 - ✅ **Error Boundaries** - Tratamento gracioso de erros
 - ✅ **Lazy Loading** - Carregamento sob demanda de rotas
 - ✅ **React.memo** - Otimização de re-renders
-- ✅ **TypeScript Strict Mode** - Type safety máxima
+- ✅ **TypeScript Strict Mode** - Type safety máximo
 - ✅ **CSS Variables** - Design tokens para consistência
 - ✅ **Accessibility** - ARIA labels e atributos semânticos
 - ✅ **SEO** - Meta tags completas e Open Graph
