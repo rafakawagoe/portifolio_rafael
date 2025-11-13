@@ -62,6 +62,25 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.value-card.clickable {
+  cursor: pointer;
+}
+
+.value-card.clickable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.value-card.clickable:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+.value-card.clickable:active {
+  transform: translateY(-2px);
 }
 
 .value-card.placeholder {

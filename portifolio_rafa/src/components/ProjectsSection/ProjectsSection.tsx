@@ -26,6 +26,7 @@ function ProjectsSection() {
           title: project.name,
           desc: project.description || "",
           image: project.image,
+          url: project.url,
         }))}
       />
     </section>

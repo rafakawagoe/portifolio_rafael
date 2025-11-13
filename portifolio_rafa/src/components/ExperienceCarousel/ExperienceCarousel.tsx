@@ -6,16 +6,19 @@ interface Experience {
   title: string;
   desc: string;
   image?: string;
+  url?: string;
 }
 
 interface ExperienceCarouselProps {
   experiences: Experience[];
   itemsToShow?: number;
+  onItemClick?: (experience: Experience, index: number) => void;
 }
 
 const ExperienceCarousel = memo(function ExperienceCarousel({
   experiences,
   itemsToShow = 3,
+  onItemClick,
 }: ExperienceCarouselProps) {
   const { currentIndex, next, prev, goTo, canGoPrev, canGoNext } = useCarousel({
     totalItems: experiences.length,
@@ -47,7 +50,29 @@ const ExperienceCarousel = memo(function ExperienceCarousel({
           >
             {isSingleItem && <div className="value-card placeholder"></div>}
             {experiences.map((exp, index) => (
-              <div key={index} className="value-card">
+              <div 
+                key={index} 
+                className={`value-card ${exp.url || onItemClick ? 'clickable' : ''}`}
+                onClick={() => {
+                  if (onItemClick) {
+                    onItemClick(exp, index);
+                  } else if (exp.url) {
+                    window.open(exp.url, '_blank', 'noopener,noreferrer');
+                  }
+                }}
+                role={exp.url || onItemClick ? 'button' : undefined}
+                tabIndex={exp.url || onItemClick ? 0 : undefined}
+                onKeyDown={(e) => {
+                  if ((e.key === 'Enter' || e.key === ' ') && (exp.url || onItemClick)) {
+                    e.preventDefault();
+                    if (onItemClick) {
+                      onItemClick(exp, index);
+                    } else if (exp.url) {
+                      window.open(exp.url, '_blank', 'noopener,noreferrer');
+                    }
+                  }
+                }}
+              >
                 <div className="value-icon">
                   {exp.image && (
                     <img
