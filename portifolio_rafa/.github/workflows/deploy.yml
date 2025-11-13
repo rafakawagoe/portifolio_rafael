@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - setup-home-page
+      - main
   workflow_dispatch:
 
 permissions:
