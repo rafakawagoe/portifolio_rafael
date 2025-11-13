@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import reactLogo from '../assets/react.svg';
 
 interface Project {
   id: number;
@@ -19,7 +20,7 @@ export const useProjects = () => {
       { 
         id: 1, 
         name: "Portfolio Rafael", 
-        image: "/src/assets/react.svg",
+        image: reactLogo,
         url: "https://github.com/rafakawagoe/portifolio_rafael",
         description: t('projects.portfolioDesc')
       },

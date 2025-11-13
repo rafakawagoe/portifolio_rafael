@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import unespLogo from '../assets/unesp-logo.png';
 
 interface TeamMember {
   id: number;
@@ -19,7 +20,7 @@ export const useTeamMembers = () => {
         name: "Universidade Estadual Paulista, Bauru - SP",
         role: "Bachelor's Degree in Computer Science",
         bio: "Janeiro 2017 - Dezembro 2022",
-        image: "/src/assets/unesp-logo.png"
+        image: unespLogo
       }
     ];
     
