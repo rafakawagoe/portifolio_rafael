@@ -5,6 +5,7 @@ export const useNavigateToAbout = () => {
   
   const navigateToAbout = () => {
     navigate('/about');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   
   return navigateToAbout;
