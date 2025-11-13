@@ -3,3 +3,8 @@ export { useScrollToSection } from './useScrollToSection';
 export { useProjects } from './useProjects';
 export { useTeamMembers } from './useTeamMembers';
 export { useWindowSize } from './useWindowSize';
+export { useSocialLinks } from './useSocialLinks';
+export { useCarousel } from './useCarousel';
+export { useExperiences } from './useExperiences';
+export { usePageTracking } from './usePageTracking';
+export { useScrollTracking } from './useScrollTracking';
