@@ -7,7 +7,7 @@
   /* Colors */
   color-scheme: light dark;
   color: #213547;
-  background-color: #ff0000;
+  background-color: #ffffff;
 
   /* Spacing */
   --spacing-xs: 0.25rem;   /* 4px */
@@ -99,7 +99,7 @@ p {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ff0000;
+    background-color: #ffffff;
   }
   a:hover {
     color: #747bff;
