@@ -16,24 +16,10 @@ export const useTeamMembers = () => {
     const teamData: TeamMember[] = [
       {
         id: 1,
-        name: "Rafael Kawagoe",
-        role: "Full Stack Developer",
-        bio: "Especialista em desenvolvimento web com foco em React, TypeScript e Node.js.",
-        image: ""
-      },
-      {
-        id: 2,
-        name: "Membro da Equipe",
-        role: "UI/UX Designer",
-        bio: "Criando experiências visuais impactantes e interfaces intuitivas.",
-        image: ""
-      },
-      {
-        id: 3,
-        name: "Membro da Equipe",
-        role: "Backend Developer",
-        bio: "Especialista em arquitetura de sistemas e desenvolvimento de APIs escaláveis.",
-        image: ""
+        name: "Universidade Estadual Paulista, Bauru - SP",
+        role: "Bachelor's Degree in Computer Science",
+        bio: "Janeiro 2017 - Dezembro 2022",
+        image: "/src/assets/unesp-logo.png"
       }
     ];
     
