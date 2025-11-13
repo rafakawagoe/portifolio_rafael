@@ -20,7 +20,7 @@ if (GA_MEASUREMENT_ID) {
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/portifolio_rafael">
         <AnalyticsProvider>
           <Suspense fallback={<LoadingSpinner />}>
             <Routes>
