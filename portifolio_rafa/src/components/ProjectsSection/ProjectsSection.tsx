@@ -1,6 +1,7 @@
 import "./ProjectsSection.css";
 import { useProjects } from "../../hooks/useProjects";
 import { useTranslation } from "react-i18next";
+import ExperienceCarousel from "../ExperienceCarousel/ExperienceCarousel";
 
 function ProjectsSection() {
   const { projects, loading } = useProjects();
@@ -20,14 +21,13 @@ function ProjectsSection() {
   return (
     <section className="projects-section">
       <h2 className="section-title">{t("projects.title")}</h2>
-      <div className="projects-grid">
-        {projects.map((project) => (
-          <div key={project.id} className="project-card">
-            <div className="project-image"></div>
-            <h3 className="project-name">{project.name}</h3>
-          </div>
-        ))}
-      </div>
+      <ExperienceCarousel
+        experiences={projects.map((project) => ({
+          title: project.name,
+          desc: project.description || "",
+          image: project.image,
+        }))}
+      />
     </section>
   );
 }
