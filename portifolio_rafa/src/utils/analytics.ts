@@ -16,12 +16,19 @@ declare global {
  * Call this once when the app loads
  */
 export const initGA = (measurementId: string) => {
-  if (typeof window === 'undefined') return;
+  if (typeof window === 'undefined') {
+    console.warn('Cannot initialize GA: window is undefined');
+    return;
+  }
+
+  console.log('Initializing Google Analytics with ID:', measurementId);
 
   // Create gtag script
   const script = document.createElement('script');
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+  script.onload = () => console.log('GA script loaded successfully');
+  script.onerror = () => console.error('Failed to load GA script');
   document.head.appendChild(script);
 
   // Initialize dataLayer
@@ -34,6 +41,8 @@ export const initGA = (measurementId: string) => {
   window.gtag('config', measurementId, {
     page_path: window.location.pathname,
   });
+  
+  console.log('GA config sent:', { measurementId, page_path: window.location.pathname });
 };
 
 /**
