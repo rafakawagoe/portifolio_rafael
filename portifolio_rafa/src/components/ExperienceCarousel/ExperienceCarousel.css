@@ -18,14 +18,16 @@
 }
 
 .values-grid {
+  --items-to-show: 3;
+  --gap-size: 30px;
   display: flex;
-  gap: 30px;
+  gap: var(--gap-size);
   /* transition controlled by inline style */
 }
 
 .values-grid .value-card {
-  flex: 0 0 calc((100% - 60px) / 3);
-  min-width: calc((100% - 60px) / 3);
+  flex: 0 0 calc((100% - (var(--gap-size) * (var(--items-to-show) - 1))) / var(--items-to-show));
+  min-width: calc((100% - (var(--gap-size) * (var(--items-to-show) - 1))) / var(--items-to-show));
 }
 
 .carousel-btn {
@@ -150,14 +152,10 @@
 }
 
 /* Responsive */
-@media (max-width: 1024px) and (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 1024px) {
   .values-grid {
-    gap: 20px;
-  }
-
-  .values-grid .value-card {
-    flex: 0 0 calc((100% - 20px) / 2);
-    min-width: calc((100% - 20px) / 2);
+    --items-to-show: 2;
+    --gap-size: 20px;
   }
 
   .carousel-container {
@@ -173,12 +171,8 @@
 
 @media (max-width: 767px) {
   .values-grid {
-    gap: 20px;
-  }
-
-  .values-grid .value-card {
-    flex: 0 0 100%;
-    min-width: 100%;
+    --items-to-show: 1;
+    --gap-size: 20px;
   }
 
   .carousel-container {
