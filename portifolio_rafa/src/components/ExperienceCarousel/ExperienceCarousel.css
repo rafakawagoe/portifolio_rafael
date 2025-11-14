@@ -150,7 +150,28 @@
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (min-width: 768px) {
+  .values-grid {
+    gap: 20px;
+  }
+
+  .values-grid .value-card {
+    flex: 0 0 calc((100% - 20px) / 2);
+    min-width: calc((100% - 20px) / 2);
+  }
+
+  .carousel-container {
+    gap: 10px;
+  }
+
+  .carousel-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 767px) {
   .values-grid {
     gap: 20px;
   }
@@ -165,8 +186,27 @@
   }
 
   .carousel-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
+    width: 35px;
+    height: 35px;
+    font-size: 1.3rem;
+  }
+
+  .value-card {
+    min-height: 250px;
+    padding: 30px 20px;
+  }
+
+  .value-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+
+  .value-title {
+    font-size: 1.3rem;
+  }
+
+  .value-description {
+    font-size: 0.95rem;
   }
 }

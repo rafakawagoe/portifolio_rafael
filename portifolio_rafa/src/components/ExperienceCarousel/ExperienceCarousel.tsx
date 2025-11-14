@@ -1,6 +1,7 @@
 import { memo } from "react";
 import "./ExperienceCarousel.css";
 import { useCarousel } from "../../hooks/useCarousel";
+import { useWindowSize } from "../../hooks/useWindowSize";
 
 interface Experience {
   title: string;
@@ -20,12 +21,17 @@ const ExperienceCarousel = memo(function ExperienceCarousel({
   itemsToShow = 3,
   onItemClick,
 }: ExperienceCarouselProps) {
+  const { isMobile, isTablet } = useWindowSize();
+  
+  // Ajusta o número de items baseado no tamanho da tela
+  const responsiveItemsToShow = isMobile ? 1 : isTablet ? 2 : itemsToShow;
+  
   const { currentIndex, next, prev, goTo, canGoPrev, canGoNext } = useCarousel({
     totalItems: experiences.length,
-    itemsToShow,
+    itemsToShow: responsiveItemsToShow,
   });
 
-  const showArrows = experiences.length > itemsToShow;
+  const showArrows = experiences.length > responsiveItemsToShow;
   const isSingleItem = experiences.length === 1;
 
   return (
@@ -45,7 +51,7 @@ const ExperienceCarousel = memo(function ExperienceCarousel({
           <div
             className={`values-grid ${isSingleItem ? "single-item" : ""}`}
             style={{
-              transform: `translateX(calc(-${currentIndex} * (100% / ${itemsToShow} + 10px)))`,
+              transform: `translateX(calc(-${currentIndex} * (100% / ${responsiveItemsToShow} + ${isMobile ? '20px' : '30px'})))`,
             }}
           >
             {isSingleItem && <div className="value-card placeholder"></div>}
@@ -105,7 +111,7 @@ const ExperienceCarousel = memo(function ExperienceCarousel({
           <button
             key={index}
             className={`dot ${
-              index >= currentIndex && index < currentIndex + itemsToShow
+              index >= currentIndex && index < currentIndex + responsiveItemsToShow
                 ? "active"
                 : ""
             }`}
