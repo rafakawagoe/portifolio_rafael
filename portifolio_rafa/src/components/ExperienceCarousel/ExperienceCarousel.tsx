@@ -110,7 +110,7 @@ const ExperienceCarousel = memo(function ExperienceCarousel({
           <div
             className={`values-grid ${isSingleItem ? "single-item" : ""}`}
             style={{
-              transform: `translateX(calc(-${currentIndex} * (100% / ${responsiveItemsToShow} + ${isMobile ? "20px" : "30px"})))`,
+              transform: `translateX(calc(-${currentIndex} * ((100% + ${isMobile ? 20 : isTablet ? 20 : 30}px) / ${responsiveItemsToShow})))`,
               transition: isTransitioning
                 ? "transform 0.5s ease-in-out"
                 : "none",
