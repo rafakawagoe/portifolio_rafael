@@ -50,8 +50,15 @@ export const initGA = (measurementId: string) => {
  * Call this on route changes
  */
 export const trackPageView = (path: string, title?: string) => {
-  if (typeof window === 'undefined' || !window.gtag) return;
+  if (typeof window === 'undefined') return;
+  
+  if (!window.gtag) {
+    console.warn('gtag not available yet, retrying in 500ms...');
+    setTimeout(() => trackPageView(path, title), 500);
+    return;
+  }
 
+  console.log('Tracking page view:', { path, title: title || document.title });
   window.gtag('event', 'page_view', {
     page_path: path,
     page_title: title || document.title,
@@ -68,8 +75,14 @@ export const trackEvent = (
   eventName: string,
   parameters?: Record<string, any>
 ) => {
-  if (typeof window === 'undefined' || !window.gtag) return;
+  if (typeof window === 'undefined') return;
+  
+  if (!window.gtag) {
+    console.warn('gtag not available for event:', eventName);
+    return;
+  }
 
+  console.log('Tracking event:', eventName, parameters);
   window.gtag('event', eventName, parameters);
 };
 
