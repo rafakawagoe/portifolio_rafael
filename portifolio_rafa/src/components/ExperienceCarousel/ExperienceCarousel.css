@@ -20,7 +20,7 @@
 .values-grid {
   display: flex;
   gap: 30px;
-  transition: transform 0.5s ease-in-out;
+  /* transition controlled by inline style */
 }
 
 .values-grid .value-card {

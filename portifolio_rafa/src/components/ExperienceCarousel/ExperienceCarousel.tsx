@@ -1,6 +1,5 @@
-import { memo } from "react";
+import { memo, useState, useEffect } from "react";
 import "./ExperienceCarousel.css";
-import { useCarousel } from "../../hooks/useCarousel";
 import { useWindowSize } from "../../hooks/useWindowSize";
 
 interface Experience {
@@ -22,26 +21,86 @@ const ExperienceCarousel = memo(function ExperienceCarousel({
   onItemClick,
 }: ExperienceCarouselProps) {
   const { isMobile, isTablet } = useWindowSize();
-  
+
   // Ajusta o número de items baseado no tamanho da tela
   const responsiveItemsToShow = isMobile ? 1 : isTablet ? 2 : itemsToShow;
-  
-  const { currentIndex, next, prev, goTo, canGoPrev, canGoNext } = useCarousel({
-    totalItems: experiences.length,
-    itemsToShow: responsiveItemsToShow,
-  });
 
   const showArrows = experiences.length > responsiveItemsToShow;
   const isSingleItem = experiences.length === 1;
 
+  // Estado para carrossel infinito
+  const [currentIndex, setCurrentIndex] = useState(responsiveItemsToShow);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Cria array estendido com clones para loop infinito
+  const extendedExperiences = [
+    ...experiences.slice(-responsiveItemsToShow),
+    ...experiences,
+    ...experiences.slice(0, responsiveItemsToShow),
+  ];
+
+  const handleNext = () => {
+    if (isTransitioning) {
+      setCurrentIndex((prev) => prev + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (isTransitioning) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  const handleGoTo = (index: number) => {
+    setCurrentIndex(index + responsiveItemsToShow);
+  };
+
+  useEffect(() => {
+    if (currentIndex === responsiveItemsToShow + experiences.length) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(responsiveItemsToShow);
+      }, 500);
+      setTimeout(() => {
+        setIsTransitioning(true);
+      }, 550);
+    } else if (currentIndex === 0) {
+      setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(responsiveItemsToShow + experiences.length - 1);
+      }, 500);
+      setTimeout(() => {
+        setIsTransitioning(true);
+      }, 550);
+    }
+  }, [currentIndex, experiences.length, responsiveItemsToShow]);
+
+  useEffect(() => {
+    setCurrentIndex(responsiveItemsToShow);
+  }, [responsiveItemsToShow]);
+
+  useEffect(() => {
+    if (isHovered || isSingleItem) return;
+
+    const interval = setInterval(() => {
+      handleNext();
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [isHovered, isSingleItem, currentIndex, isTransitioning]);
+
   return (
-    <div className="experience-carousel">
+    <div
+      className="experience-carousel"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="carousel-container">
         {showArrows && (
           <button
             className="carousel-btn prev"
-            onClick={prev}
-            disabled={!canGoPrev}
+            onClick={handlePrev}
             aria-label="Previous"
           >
             ‹
@@ -51,30 +110,36 @@ const ExperienceCarousel = memo(function ExperienceCarousel({
           <div
             className={`values-grid ${isSingleItem ? "single-item" : ""}`}
             style={{
-              transform: `translateX(calc(-${currentIndex} * (100% / ${responsiveItemsToShow} + ${isMobile ? '20px' : '30px'})))`,
+              transform: `translateX(calc(-${currentIndex} * (100% / ${responsiveItemsToShow} + ${isMobile ? "20px" : "30px"})))`,
+              transition: isTransitioning
+                ? "transform 0.5s ease-in-out"
+                : "none",
             }}
           >
             {isSingleItem && <div className="value-card placeholder"></div>}
-            {experiences.map((exp, index) => (
-              <div 
-                key={index} 
-                className={`value-card ${exp.url || onItemClick ? 'clickable' : ''}`}
+            {extendedExperiences.map((exp, index) => (
+              <div
+                key={index}
+                className={`value-card ${exp.url || onItemClick ? "clickable" : ""}`}
                 onClick={() => {
                   if (onItemClick) {
                     onItemClick(exp, index);
                   } else if (exp.url) {
-                    window.open(exp.url, '_blank', 'noopener,noreferrer');
+                    window.open(exp.url, "_blank", "noopener,noreferrer");
                   }
                 }}
-                role={exp.url || onItemClick ? 'button' : undefined}
+                role={exp.url || onItemClick ? "button" : undefined}
                 tabIndex={exp.url || onItemClick ? 0 : undefined}
                 onKeyDown={(e) => {
-                  if ((e.key === 'Enter' || e.key === ' ') && (exp.url || onItemClick)) {
+                  if (
+                    (e.key === "Enter" || e.key === " ") &&
+                    (exp.url || onItemClick)
+                  ) {
                     e.preventDefault();
                     if (onItemClick) {
                       onItemClick(exp, index);
                     } else if (exp.url) {
-                      window.open(exp.url, '_blank', 'noopener,noreferrer');
+                      window.open(exp.url, "_blank", "noopener,noreferrer");
                     }
                   }
                 }}
@@ -98,8 +163,7 @@ const ExperienceCarousel = memo(function ExperienceCarousel({
         {showArrows && (
           <button
             className="carousel-btn next"
-            onClick={next}
-            disabled={!canGoNext}
+            onClick={handleNext}
             aria-label="Next"
           >
             ›
@@ -107,18 +171,20 @@ const ExperienceCarousel = memo(function ExperienceCarousel({
         )}
       </div>
       <div className="carousel-dots">
-        {experiences.map((_, index) => (
-          <button
-            key={index}
-            className={`dot ${
-              index >= currentIndex && index < currentIndex + responsiveItemsToShow
-                ? "active"
-                : ""
-            }`}
-            onClick={() => goTo(index)}
-            aria-label={`Go to item ${index + 1}`}
-          />
-        ))}
+        {experiences.map((_, index) => {
+          const activeIndex =
+            (((currentIndex - responsiveItemsToShow) % experiences.length) +
+              experiences.length) %
+            experiences.length;
+          return (
+            <button
+              key={index}
+              className={`dot ${activeIndex === index ? "active" : ""}`}
+              onClick={() => handleGoTo(index)}
+              aria-label={`Go to item ${index + 1}`}
+            />
+          );
+        })}
       </div>
     </div>
   );
