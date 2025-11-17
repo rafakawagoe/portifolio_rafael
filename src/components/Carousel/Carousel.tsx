@@ -30,15 +30,24 @@ const Carousel = memo(function Carousel({
   const showArrows = experiences.length > responsiveItemsToShow;
   const isSingleItem = experiences.length === 1;
 
-  // Configure EmblaCarousel with autoplay
+  // Configure EmblaCarousel with autoplay (only if more than one item)
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
-      loop: true,
-      align: "start",
+      loop: !isSingleItem,
+      align: isSingleItem || isMobile ? "center" : "start",
       slidesToScroll: 1,
       skipSnaps: false,
+      dragFree: false,
     },
-    [Autoplay({ delay: 4500, stopOnInteraction: true })]
+    isSingleItem
+      ? []
+      : [
+          Autoplay({
+            delay: 4500,
+            stopOnInteraction: true,
+            stopOnMouseEnter: true,
+          }),
+        ]
   );
 
   // Handle navigation buttons
@@ -79,7 +88,7 @@ const Carousel = memo(function Carousel({
   return (
     <div className="experience-carousel">
       <div className="carousel-container">
-        {showArrows && (
+        {!isMobile && showArrows && (
           <button
             className="carousel-btn prev"
             onClick={scrollPrev}
@@ -89,14 +98,17 @@ const Carousel = memo(function Carousel({
           </button>
         )}
         <div className="embla" ref={emblaRef}>
-          <div className="embla__container">
-            {isSingleItem && <div className="value-card placeholder"></div>}
+          <div
+            className={`embla__container ${
+              isSingleItem ? "embla__container--single" : ""
+            }`}
+          >
             {experiences.map((exp, index) => (
               <div
                 key={index}
                 className="embla__slide"
                 style={{
-                  flex: `0 0 calc((100% - (var(--gap-size) * (${responsiveItemsToShow} - 1))) / ${responsiveItemsToShow})`,
+                  flex: `0 0 calc(100% / ${responsiveItemsToShow})`,
                 }}
               >
                 <div
@@ -138,10 +150,9 @@ const Carousel = memo(function Carousel({
                 </div>
               </div>
             ))}
-            {isSingleItem && <div className="value-card placeholder"></div>}
           </div>
         </div>
-        {showArrows && (
+        {!isMobile && showArrows && (
           <button
             className="carousel-btn next"
             onClick={scrollNext}
@@ -151,16 +162,18 @@ const Carousel = memo(function Carousel({
           </button>
         )}
       </div>
-      <div className="carousel-dots">
-        {experiences.map((_, index) => (
-          <button
-            key={index}
-            className={`dot ${currentSelectedIndex === index ? "active" : ""}`}
-            onClick={() => scrollTo(index)}
-            aria-label={`Go to item ${index + 1}`}
-          />
-        ))}
-      </div>
+      {isMobile && (
+        <div className="carousel-dots">
+          {experiences.map((_, index) => (
+            <button
+              key={index}
+              className={`dot ${currentSelectedIndex === index ? "active" : ""}`}
+              onClick={() => scrollTo(index)}
+              aria-label={`Go to item ${index + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 });
