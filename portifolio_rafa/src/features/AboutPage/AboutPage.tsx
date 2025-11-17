@@ -1,7 +1,7 @@
 import "./AboutPage.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Footer from "../../components/Footer/Footer";
-import ExperienceCarousel from "../../components/ExperienceCarousel/ExperienceCarousel";
+import Carousel from "../../components/Carousel/Carousel";
 import SocialSection from "../../components/SocialSection/SocialSection";
 import ErrorBoundary from "../../components/ErrorBoundary/ErrorBoundary";
 import SEO from "../../components/SEO/SEO";
@@ -56,7 +56,7 @@ function AboutPage() {
       <ErrorBoundary>
         <section className="values-section">
           <h2 className="section-heading">{t("aboutPage.valuesTitle")}</h2>
-          <ExperienceCarousel experiences={experiences} />
+          <Carousel experiences={experiences} />
         </section>
       </ErrorBoundary>
 
@@ -66,7 +66,7 @@ function AboutPage() {
           {loading ? (
             <p>{t("aboutPage.teamLoading")}</p>
           ) : (
-            <ExperienceCarousel
+            <Carousel
               experiences={team.map((member) => ({
                 title: member.name,
                 desc: `${member.role}. ${member.bio}`,
