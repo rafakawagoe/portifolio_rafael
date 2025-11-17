@@ -29,11 +29,9 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        working-directory: ./portifolio_rafa
         run: npm install --legacy-peer-deps
 
       - name: Build
-        working-directory: ./portifolio_rafa
         env:
           VITE_GA_MEASUREMENT_ID: ${{ secrets.VITE_GA_MEASUREMENT_ID }}
           VITE_WHATSAPP_NUMBER: ${{ secrets.VITE_WHATSAPP_NUMBER }}
@@ -49,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './portifolio_rafa/dist'
+          path: './dist'
 
   deploy:
     environment:
