@@ -1,13 +1,10 @@
 // Google Analytics tracking utilities
+/// <reference types="gtag.js" />
 
 declare global {
   interface Window {
-    gtag?: (
-      command: string,
-      targetId: string,
-      config?: Record<string, any>
-    ) => void;
-    dataLayer?: any[];
+    dataLayer: any[];
+    gtag: Gtag.Gtag;
   }
 }
 
@@ -33,13 +30,14 @@ export const initGA = (measurementId: string) => {
 
   // Initialize dataLayer
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function gtag(...args: any[]) {
-    window.dataLayer?.push(args);
+  window.gtag = function gtag() {
+    window.dataLayer.push(arguments);
   };
 
-  window.gtag('js', new Date().toISOString());
+  window.gtag('js', new Date());
   window.gtag('config', measurementId, {
     page_path: window.location.pathname,
+    send_page_view: true,
   });
   
   console.log('GA config sent:', { measurementId, page_path: window.location.pathname });
